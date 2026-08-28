@@ -113,13 +113,15 @@ export async function populateFormItemsDropdown() {
     }
 }
 
-export async function loadUpcomingBillAlerts() {
+export async function loadUpcomingBillAlerts(customDays = 30) {
     const bannerContainer = document.getElementById('upcomingAlertsBannerContainer');
     if (!bannerContainer) return;
     try {
         const res = await fetch('/api/dashboard/alerts');
         if (!res.ok) throw new Error();
-        const alerts = await res.json();
+        const allAlerts = await res.json();
+
+        const alerts = allAlerts.filter(bill => bill.daysRemaining <= customDays);
 
         if (alerts.length === 0) {
             bannerContainer.classList.add('hidden');
@@ -131,7 +133,7 @@ export async function loadUpcomingBillAlerts() {
             <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 flex flex-col gap-3">
                 <div class="flex items-center gap-2 text-amber-400 font-semibold text-sm">
                     <span class="flex h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
-                    Attention Required: Upcoming Renewals (Next 30 Days)
+                    Attention Required: Upcoming Renewals (Next ${customDays} Days)
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     ${alerts.map(bill => {

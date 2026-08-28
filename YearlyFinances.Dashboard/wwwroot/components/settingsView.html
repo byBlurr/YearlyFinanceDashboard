@@ -1,0 +1,42 @@
+﻿<header class="pb-6 border-b border-slate-800/80">
+    <h1 class="text-3xl font-bold tracking-tight">Application Settings</h1>
+    <p class="text-slate-400 text-sm mt-1">Configure client-side workspace preferences and privacy overrides.</p>
+</header>
+
+<section class="max-w-xl my-8 bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl space-y-6">
+
+    <div class="flex items-center justify-between pb-5 border-b border-slate-900">
+        <div>
+            <h3 class="text-sm font-bold text-slate-200">Financial Privacy Overrides</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Mask major liquidity totals and progress ledger figures with asterisks.</p>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer select-none">
+            <input type="checkbox" id="settingsPrivacyModeCheckbox" onchange="window.togglePrivacyMaskMode(this.checked)" class="sr-only peer">
+            <div class="w-11 h-6 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 peer-checked:after:bg-white border border-slate-700/60"></div>
+        </label>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-5 border-b border-slate-900 gap-4">
+        <div>
+            <h3 class="text-sm font-bold text-slate-200">Global Reporting Currency</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Alter currency formatting symbols across totals and allocation meters.</p>
+        </div>
+        <select id="settingsCurrencySelect" onchange="window.updateGlobalCurrencySymbol(this.value)" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs font-medium text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 w-32 cursor-pointer">
+            <option value="£" selected>GBP (£)</option>
+            <option value="€">EUR (€)</option>
+            <option value="$">USD ($)</option>
+        </select>
+    </div>
+
+    <div class="space-y-3">
+        <div class="flex justify-between items-center">
+            <div>
+                <h3 class="text-sm font-bold text-slate-200">Renewal Alert Threshold</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Set the forward-looking days window calculation limit for bill warnings.</p>
+            </div>
+            <span id="settingsAlertDaysLabel" class="text-sm font-bold text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-xl font-mono border border-indigo-500/20">30 Days</span>
+        </div>
+        <input type="range" id="settingsAlertDaysSlider" min="7" max="90" value="30" oninput="window.updateAlertTimeframeDays(this.value)" class="w-full accent-indigo-500 h-1.5 bg-slate-900 rounded-lg cursor-pointer border border-slate-800" />
+    </div>
+
+</section>

@@ -133,7 +133,7 @@
             INNER JOIN payments p ON i.id = p.item_id
             INNER JOIN categories c ON i.category_id = c.id
             GROUP BY i.id, i.name, c.name
-            HAVING DaysRemaining BETWEEN 0 AND 30
+            HAVING DaysRemaining BETWEEN 0 AND 90
             ORDER BY DaysRemaining ASC;
             """;
     }

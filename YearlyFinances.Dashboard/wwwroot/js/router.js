@@ -18,8 +18,24 @@ export function switchView(viewName) {
         targetNavBtn.className = "w-full text-left flex items-center space-x-3 px-4 py-2.5 bg-indigo-600/10 text-indigo-400 rounded-xl font-medium transition cursor-pointer";
     }
 
+    if (viewName === 'settings') {
+        const privacyCb = document.getElementById('settingsPrivacyModeCheckbox');
+        const currencySel = document.getElementById('settingsCurrencySelect');
+        const alertSlider = document.getElementById('settingsAlertDaysSlider');
+        const alertLabel = document.getElementById('settingsAlertDaysLabel');
+
+        if (privacyCb) privacyCb.checked = localStorage.getItem('finTrack_privacyMode') === 'true';
+        if (currencySel) currencySel.value = localStorage.getItem('finTrack_currencySymbol') || "£";
+        if (alertSlider) {
+            const savedDays = localStorage.getItem('finTrack_alertDaysThreshold') || 30;
+            alertSlider.value = savedDays;
+            if (alertLabel) alertLabel.innerText = `${savedDays} Days`;
+        }
+    }
+
     if (viewName === 'manage') loadManagementCategories();
     if (viewName === 'groups') loadGroupsPageData();
     if (viewName === 'items') loadItemsPageData();
     if (viewName === 'categories') loadCategoriesPageData();
+    if (viewName === 'settings') { }
 }
