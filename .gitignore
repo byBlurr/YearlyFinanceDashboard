@@ -1,0 +1,24 @@
+# Local Environment Secret Vault Strings (Physical safety block)
+.env
+appsettings.Development.json
+UserSecretsId
+
+# .NET Compiler Output Artifact Caches
+[Bb]in/
+[Oo]bj/
+out/
+.net/
+
+# Visual Studio & IDE Environment Footprints
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Operating System Temporary Blobs
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store

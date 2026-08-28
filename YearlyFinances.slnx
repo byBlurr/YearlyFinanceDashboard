@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".env" />
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="YearlyFinances.Core/YearlyFinances.Core.csproj" />
+  <Project Path="YearlyFinances.Dashboard/YearlyFinances.Dashboard.csproj" />
+  <Project Path="YearlyFinances.Tests/YearlyFinances.Tests.csproj" />
+</Solution>

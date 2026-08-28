@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearly Finance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4""></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+        <div id="component-sidebar" class="h-full flex"></div>
+
+        <main class="flex-1 overflow-y-auto bg-slate-900 p-6 md:p-10">
+            <div id="view-panel-dashboard" class="view-panel"></div>
+            <div id="view-panel-groups" class="view-panel hidden"></div>
+            <div id="view-panel-items" class="view-panel hidden"></div>
+            <div id="view-panel-categories" class="view-panel hidden"></div>
+            <div id="view-panel-manage" class="view-panel hidden"></div>
+        </main>
+    </div>
+
+    <div id="component-modal"></div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

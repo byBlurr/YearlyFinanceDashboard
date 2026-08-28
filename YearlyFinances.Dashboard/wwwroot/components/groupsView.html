@@ -1,0 +1,37 @@
+﻿<header class="pb-6 border-b border-slate-800/80">
+    <h1 class="text-3xl font-bold tracking-tight">Asset Package Groups</h1>
+    <p class="text-slate-400 text-sm mt-1">Review aggregated costs and histories across linked asset bundles.</p>
+</header>
+
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8 my-8">
+    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-xl h-fit">
+        <h3 class="font-bold text-sm text-slate-400 uppercase tracking-wider mb-4">Select Asset Group</h3>
+        <div id="groupsNavList" class="space-y-2"></div>
+    </div>
+
+    <div class="lg:col-span-2 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gradient-to-br from-slate-950 to-indigo-950/20 p-5 rounded-2xl border border-slate-800/80 shadow-xl">
+                <span class="text-[11px] font-semibold text-indigo-400 uppercase tracking-wider block">Combined Total Cost</span>
+                <div class="text-2xl font-black mt-1 text-indigo-400 tracking-tight" id="groupAggregatedTotalTxt">£0.00</div>
+            </div>
+
+            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-xl">
+                <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">This Year (2026)</span>
+                <div class="text-2xl font-bold mt-1 text-slate-200 tracking-tight" id="groupThisYearTotalTxt">£0.00</div>
+            </div>
+
+            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-xl">
+                <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Last Year (2025)</span>
+                <div class="text-2xl font-bold mt-1 text-slate-400 tracking-tight" id="groupLastYearTotalTxt">£0.00</div>
+            </div>
+        </div>
+
+        <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl">
+            <h3 class="font-bold text-base text-slate-300 mb-4" id="groupDetailHeader">Combined Group Ledger Statement</h3>
+            <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1" id="groupPaymentsContainer">
+                <div class="text-sm text-slate-500 text-center py-12">Select an asset group package from the left sidebar tracker menu.</div>
+            </div>
+        </div>
+    </div>
+</section>

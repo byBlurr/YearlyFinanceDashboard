@@ -1,0 +1,13 @@
+services:
+  web-dashboard:
+    image: yearly-finances-dashboard:latest
+    container_name: yearly_finances_dashboard
+    build:
+      context: .
+      dockerfile: YearlyFinances.Dashboard/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__MariaDbConnection=Server=${DB_HOST};Port=${DB_PORT:-3266};Database=${DB_NAME};Uid=${DB_USER};Pwd=${DB_PASS};

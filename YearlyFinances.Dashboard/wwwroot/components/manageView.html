@@ -1,0 +1,61 @@
+﻿<header class="pb-6 border-b border-slate-800/80">
+    <h1 class="text-3xl font-bold tracking-tight">Database Administration</h1>
+    <p class="text-slate-400 text-sm mt-1">Configure your foundational category trees, asset centers, and asset group packages.</p>
+</header>
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+
+    <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl h-fit">
+        <h3 class="font-bold text-base text-slate-300 mb-1">Add Trackable Asset Item</h3>
+        <p class="text-xs text-slate-500 mb-4">Register new recurring obligations (e.g., 'Van Insurance').</p>
+
+        <form id="manageItemForm" onsubmit="window.handleItemCreateSubmit(event)" class="space-y-3.5 mt-4">
+            <div>
+                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Asset Group Relationship</label>
+                <select id="manageItemGroupId" onchange="window.handleFormGroupSelectionChange(this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"></select>
+            </div>
+            <div>
+                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Target Category</label>
+                <select id="manageItemCategoryId" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"></select>
+            </div>
+            <div>
+                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Asset Name</label>
+                <input type="text" id="manageItemName" required placeholder="e.g., Project Car MOT" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none" />
+            </div>
+            <div>
+                <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Description (Optional)</label>
+                <input type="text" id="manageItemDesc" placeholder="Description (Optional)" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none" />
+            </div>
+            <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-medium py-2 rounded-xl text-xs transition cursor-pointer">Save Asset</button>
+        </form>
+    </div>
+
+    <div class="space-y-6">
+
+        <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl">
+            <h3 class="font-bold text-base text-slate-300 mb-1">Create Asset Group</h3>
+            <p class="text-xs text-slate-500 mb-4">Bundle cross-category obligations together (e.g., 'Seat Car Package').</p>
+            <form id="manageGroupForm" onsubmit="window.handleGroupCreateSubmit(event)" class="space-y-3.5 mt-4">
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Group Parent Category</label>
+                    <select id="manageGroupCategoryId" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"></select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Group Name</label>
+                    <input type="text" id="manageGroupName" required placeholder="e.g., Honda Motorbike" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none" />
+                </div>
+                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-medium py-2 rounded-xl text-xs transition cursor-pointer">Save Asset Group</button>
+            </form>
+        </div>
+
+        <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl">
+            <h3 class="font-bold text-base text-slate-300 mb-1">Create Finance Category</h3>
+            <p class="text-xs text-slate-500 mb-4">Create global filtering groupings (e.g., 'House Utilities').</p>
+            <form id="manageCategoryForm" onsubmit="window.handleCategoryCreateSubmit(event)" class="space-y-4 mt-4">
+                <input type="text" id="manageCategoryName" required placeholder="Category Group Name" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none" />
+                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-medium py-2 rounded-xl text-xs transition cursor-pointer">Save Category</button>
+            </form>
+        </div>
+
+    </div>
+</section>
