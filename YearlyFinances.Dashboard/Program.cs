@@ -1,10 +1,5 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using System.Diagnostics;
 using YearlyFinances.Core.Repositories;
 
 namespace YearlyFinances.Dashboard
@@ -91,6 +86,20 @@ namespace YearlyFinances.Dashboard
 
             app.MapGet("/api/dashboard/alerts", async (IFinanceRepository repo) =>
                 Results.Ok(await repo.GetUpcomingBillsAsync()));
+
+            app.MapGet("/api/health/database", async (IFinanceRepository repo) =>
+            {
+                var watch = Stopwatch.StartNew();
+                var isAlive = await repo.PingDatabaseAsync();
+                watch.Stop();
+
+                if (!isAlive)
+                {
+                    return Results.Json(new { status = "Disconnected", latencyMs = 0 }, statusCode: 503);
+                }
+
+                return Results.Ok(new { status = "Connected", latencyMs = watch.ElapsedMilliseconds });
+            });
 
             app.Run();
         }

@@ -217,3 +217,43 @@ window.updateAlertTimeframeDays = function (selectedDaysAmount) {
 
     Dashboard.loadUpcomingBillAlerts(currentGlobalAlertDaysThreshold);
 };
+
+
+
+
+
+async function runDatabaseHealthMonitorCycle() {
+    const container = document.getElementById('sidebarSystemStatusContainer');
+    if (!container) return;
+
+    try {
+        const health = await ApiClient.checkDatabaseHealth();
+
+        container.innerHTML = `
+            <div class="flex flex-col gap-0.5">
+                <div class="text-emerald-400 font-semibold flex items-center gap-2 transition">
+                    <span class="h-2 w-2 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981] animate-pulse"></span>
+                    Database Connected
+                </div>
+                <div class="text-[10px] text-slate-500 font-sans pl-4">Latency: ${health.latencyMs}ms • .NET 10 App Engine</div>
+            </div>
+        `;
+    } catch (err) {
+        container.innerHTML = `
+            <div class="flex flex-col gap-0.5">
+                <div class="text-rose-400 font-bold flex items-center gap-2 tracking-wide">
+                    <span class="h-2 w-2 bg-rose-600 rounded-full shadow-[0_0_8px_#f43f5e] animate-ping"></span>
+                    DATABASE OFFLINE
+                </div>
+                <div class="text-[10px] text-rose-500/80 font-sans pl-4">Network Bridge Connection Refused</div>
+            </div>
+        `;
+    }
+}
+
+const originalInitializeDashboard = initializeDashboard;
+initializeDashboard = async function () {
+    await originalInitializeDashboard();
+    runDatabaseHealthMonitorCycle();
+    setInterval(runDatabaseHealthMonitorCycle, 10000);
+};

@@ -38,24 +38,23 @@ export async function loadForecastMetrics() {
 
 export async function loadVarianceAndMeters() {
     try {
-        const data = await ApiClient.getVariance();
+        const varianceData = await ApiClient.getVariance();
+        const forecastData = await ApiClient.getForecast();
 
         const lastYearLabel = document.getElementById('lastYearYtdLabel');
         if (lastYearLabel) {
-            lastYearLabel.innerText = `£${data.lastYearYtdTotal.toFixed(2)}`;
+            lastYearLabel.innerText = `£${varianceData.lastYearYtdTotal.toFixed(2)}`;
         }
 
         const badge = document.getElementById('varianceBadge');
-        if (badge) {
-            const changeValue = data.percentageChange;
-            if (changeValue > 0) {
-                badge.innerText = `+${changeValue.toFixed(2)}%`;
-                badge.className = 'font-semibold text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded';
-            } else if (changeValue < 0) {
-                badge.innerText = `${changeValue.toFixed(2)}%`;
-                badge.className = 'font-semibold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded';
+        if (badge && varianceData.lastYearYtdTotal > 0) {
+            const absorptionPercentage = (forecastData.thisYearSoFar / varianceData.lastYearYtdTotal) * 100;
+
+            badge.innerText = `${absorptionPercentage.toFixed(1)}%`;
+
+            if (absorptionPercentage > 100) {
+                badge.className = 'font-semibold text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded';
             } else {
-                badge.innerText = '0.00%';
                 badge.className = 'font-semibold text-slate-400 bg-slate-500/10 px-1.5 py-0.5 rounded';
             }
         }

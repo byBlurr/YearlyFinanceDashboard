@@ -125,5 +125,19 @@ namespace YearlyFinances.Core.Repositories
             using var db = CreateConnection();
             return await db.QueryAsync<UpcomingBillAlert>(new CommandDefinition(SqlQueries.GetUpcomingBills, cancellationToken: ct));
         }
+
+        public async Task<bool> PingDatabaseAsync(CancellationToken ct = default)
+        {
+            try
+            {
+                using var db = CreateConnection();
+                await db.ExecuteScalarAsync<int>(new CommandDefinition(SqlQueries.DatabasePing, cancellationToken: ct));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

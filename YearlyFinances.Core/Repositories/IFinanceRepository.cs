@@ -17,5 +17,6 @@ namespace YearlyFinances.Core.Repositories
         Task<IEnumerable<PaymentItem>> GetGroupPaymentsSummaryAsync(int groupId, CancellationToken ct = default);
         Task<int> AddGroupAsync(string name, int categoryId, CancellationToken ct = default);
         Task<IEnumerable<UpcomingBillAlert>> GetUpcomingBillsAsync(CancellationToken ct = default);
+        Task<bool> PingDatabaseAsync(CancellationToken ct = default);
     }
 }

@@ -69,5 +69,11 @@
         });
         if (!res.ok) throw new Error('Asset deployment item creation failure');
         return res.json();
+    },
+
+    async checkDatabaseHealth() {
+        const res = await fetch('/api/health/database');
+        if (!res.ok) throw new Error('Database unreachable');
+        return res.json();
     }
 };

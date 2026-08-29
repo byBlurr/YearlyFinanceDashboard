@@ -136,5 +136,7 @@
             HAVING DaysRemaining BETWEEN 0 AND 90
             ORDER BY DaysRemaining ASC;
             """;
+
+        public const string DatabasePing = "SELECT 1;";
     }
 }
