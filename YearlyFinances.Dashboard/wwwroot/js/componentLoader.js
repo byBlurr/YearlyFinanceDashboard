@@ -25,6 +25,7 @@ export async function stitchUiComponents() {
 
     await Promise.all([
         loadComponent('view-panel-dashboard', '/components/dashboardView.html'),
+        loadComponent('view-panel-compare', '/components/compareView.html'),
         loadComponent('view-panel-groups', '/components/groupsView.html'),
         loadComponent('view-panel-items', '/components/itemsView.html'),
         loadComponent('view-panel-categories', '/components/categoriesView.html'),

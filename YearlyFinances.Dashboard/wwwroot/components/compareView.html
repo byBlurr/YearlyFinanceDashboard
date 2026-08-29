@@ -1,0 +1,27 @@
+﻿<header class="pb-6 border-b border-slate-800/80">
+    <h1 class="text-3xl font-bold tracking-tight">Year-over-Year Performance Audit</h1>
+    <p class="text-slate-400 text-sm mt-1">Direct item-by-item comparative trajectory mapping between last year (2025) and this year (2026).</p>
+</header>
+
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-xl">
+        <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Prior Year Outlay</span>
+        <div class="text-2xl font-black mt-1 text-slate-300 tracking-tight" id="compare2025TotalLabel">£0.00</div>
+    </div>
+    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800/80 shadow-xl">
+        <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Active Year Outlay</span>
+        <div class="text-2xl font-black mt-1 text-indigo-400 tracking-tight" id="compare2026TotalLabel">£0.00</div>
+    </div>
+    <div class="bg-gradient-to-br from-slate-950 to-indigo-950/20 p-5 rounded-2xl border border-slate-800/80 shadow-xl">
+        <span class="text-[11px] font-semibold text-indigo-400 uppercase tracking-wider block">Net Trajectory Variance</span>
+        <div class="text-2xl font-black mt-1 tracking-tight" id="compareNetVarianceLabel">£0.00</div>
+    </div>
+</section>
+
+<div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl">
+    <h3 class="font-bold text-base text-slate-300 mb-1">Itemized Variance Analysis</h3>
+    <p class="text-xs text-slate-500 mb-6">Chronological overview mapping individual price shifts, due-date variances, and pending year-end items.</p>
+
+    <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1" id="compareAnalysisMatrixContainer">
+    </div>
+</div>
