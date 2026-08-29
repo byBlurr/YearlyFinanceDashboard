@@ -10,7 +10,7 @@ namespace YearlyFinances.Core.Repositories
         Task<int> AddPaymentAsync(int itemId, decimal amount, DateTime paymentDate, CancellationToken ct = default);
         Task<IEnumerable<TrackedItem>> GetCategoryItemsAsync(int categoryId, CancellationToken ct = default);
         Task<int> AddCategoryAsync(string name, CancellationToken ct = default);
-        Task<int> AddItemAsync(int categoryId, int? groupId, string name, string description, CancellationToken ct = default);
+        Task<int> AddItemAsync(int categoryId, int? groupId, string name, string description, int countsTowardSavings, CancellationToken ct = default);
         Task<IEnumerable<AssetCategory>> GetAllCategoriesAsync(CancellationToken ct = default);
         Task<IEnumerable<PaymentItem>> GetPaymentsForItemAsync(int itemId, CancellationToken ct = default);
         Task<IEnumerable<AssetGroup>> GetAllGroupsAsync(CancellationToken ct = default);

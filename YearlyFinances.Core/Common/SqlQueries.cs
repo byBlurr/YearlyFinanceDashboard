@@ -72,8 +72,8 @@
             """;
 
         public const string AddItem = """
-            INSERT INTO items (category_id, group_id, name, description) 
-            VALUES (@CategoryId, @GroupId, @Name, @Description);
+            INSERT INTO items (category_id, group_id, name, description, counts_toward_savings) 
+            VALUES (@CategoryId, @GroupId, @Name, @Description, @CountsTowardSavings);
             SELECT LAST_INSERT_ID();
             """;
 

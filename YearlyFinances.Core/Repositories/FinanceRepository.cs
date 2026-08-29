@@ -84,10 +84,10 @@ namespace YearlyFinances.Core.Repositories
             return await db.ExecuteScalarAsync<int>(new CommandDefinition(SqlQueries.AddCategory, new { Name = name }, cancellationToken: ct));
         }
 
-        public async Task<int> AddItemAsync(int categoryId, int? groupId, string name, string description, CancellationToken ct = default)
+        public async Task<int> AddItemAsync(int categoryId, int? groupId, string name, string description, int countsTowardSavings, CancellationToken ct = default)
         {
             using var db = CreateConnection();
-            var parameters = new { CategoryId = categoryId, GroupId = groupId, Name = name, Description = description };
+            var parameters = new { CategoryId = categoryId, GroupId = groupId, Name = name, Description = description, CountsTowardSavings = countsTowardSavings };
             return await db.ExecuteScalarAsync<int>(new CommandDefinition(SqlQueries.AddItem, parameters, cancellationToken: ct));
         }
 

@@ -65,7 +65,7 @@ namespace YearlyFinances.Dashboard
 
             app.MapPost("/api/items", async ([Required] CreateItemRequest request, IFinanceRepository repo) =>
             {
-                var createdId = await repo.AddItemAsync(request.CategoryId, request.GroupId, request.Name, request.Description ?? "");
+                var createdId = await repo.AddItemAsync(request.CategoryId, request.GroupId, request.Name, request.Description ?? "", request.CountsTowardSavings);
                 return Results.Created($"/api/categories/{request.CategoryId}/items", new { Id = createdId });
             });
 
@@ -111,6 +111,6 @@ namespace YearlyFinances.Dashboard
         [Required] DateTime PaymentDate
     );
     public record CreateCategoryRequest([Required] string Name);
-    public record CreateItemRequest([Required] int CategoryId, int? GroupId, [Required] string Name, string? Description);
+    public record CreateItemRequest([Required] int CategoryId, int? GroupId, [Required] string Name, string? Description, int CountsTowardSavings);
     public record CreateGroupRequest([Required] string Name, [Required] int CategoryId);
 }

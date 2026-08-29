@@ -36,7 +36,8 @@ namespace YearlyFinances.Core.Models
         int Id,
         int CategoryId,
         string Name,
-        string? Description
+        string? Description,
+        int CountsTowardSavings
     );
 
     public record AssetCategory(int Id, string Name);
