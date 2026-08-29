@@ -134,17 +134,20 @@ window.handleCategoryCreateSubmit = async function (event) {
 window.handleItemCreateSubmit = async function (event) {
     event.preventDefault();
     const groupSelectValue = document.getElementById('manageItemGroupId').value;
+    const isChecked = document.getElementById('manageItemCountsTowardSavings').checked;
     const payload = {
         categoryId: parseInt(document.getElementById('manageItemCategoryId').value),
         groupId: groupSelectValue ? parseInt(groupSelectValue) : null,
         name: document.getElementById('manageItemName').value,
-        description: document.getElementById('manageItemDesc').value
+        description: document.getElementById('manageItemDesc').value,
+        countsTowardSavings: isChecked ? 1 : 0 
     };
     try {
         await ApiClient.createItem(payload);
         document.getElementById('manageItemName').value = '';
         document.getElementById('manageItemDesc').value = '';
         document.getElementById('manageItemGroupId').value = '';
+        document.getElementById('manageItemCountsTowardSavings').checked = true;
         alert('Asset item registered!');
     } catch (err) {
         alert('Error registering item.');

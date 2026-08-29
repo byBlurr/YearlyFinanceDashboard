@@ -26,6 +26,16 @@
                 <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Description (Optional)</label>
                 <input type="text" id="manageItemDesc" placeholder="Description (Optional)" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none" />
             </div>
+            <div class="flex items-center gap-3 py-1.5 px-1 mb-2">
+                <input type="checkbox"
+                       id="manageItemCountsTowardSavings"
+                       checked
+                       class="h-4 w-4 bg-slate-900 border border-slate-800 rounded-md text-indigo-600 focus:ring-indigo-500 accent-indigo-600 cursor-pointer" />
+                <div>
+                    <label for="manageItemCountsTowardSavings" class="text-xs font-bold text-slate-300 cursor-pointer select-none">Count Towards Savings</label>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Include this asset package history profile inside your rolling annual runway budget buffer targets.</p>
+                </div>
+            </div>
             <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-medium py-2 rounded-xl text-xs transition cursor-pointer">Save Asset</button>
         </form>
     </div>
