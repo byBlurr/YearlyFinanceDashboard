@@ -38,7 +38,7 @@ export async function loadForecastMetrics() {
         const bufferText = localStorage.getItem('finTrack_savingsBuffer') || '15';
         const savingsBuffer = parseFloat(bufferText);
 
-        const recommendedSavings = (data.lastYearGrandTotal * (1 + (savingsBuffer / 100))) / (savingsInterval.toUpperCase() === 'WEEKLY' ? 52 : 12);
+        const recommendedSavings = (data.forecastedYearlyTotal * (1 + (savingsBuffer / 100))) / (savingsInterval.toUpperCase() === 'WEEKLY' ? 52 : 12);
         recommendedSavingsCard.innerText = `£${recommendedSavings.toFixed(2)}`;
         recommendedSavingsIntervalCard.innerText = savingsInterval;
 
