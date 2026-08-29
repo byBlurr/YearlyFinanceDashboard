@@ -39,4 +39,28 @@
         <input type="range" id="settingsAlertDaysSlider" min="7" max="90" value="30" oninput="window.updateAlertTimeframeDays(this.value)" class="w-full accent-indigo-500 h-1.5 bg-slate-900 rounded-lg cursor-pointer border border-slate-800" />
     </div>
 
+    <div class="space-y-3">
+        <div class="flex justify-between items-center">
+            <div>
+                <h3 class="text-sm font-bold text-slate-200">Savings Interval</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Set whether savings are handled weekly or monthly.</p>
+            </div>
+            <select id="settingsSavingsIntervalSelect" onchange="window.updateSavingsInterval(this.value)" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs font-medium text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 w-32 cursor-pointer">
+                <option value="Weekly" selected>Weekly</option>
+                <option value="Monthly">Monthly</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="space-y-3">
+        <div class="flex justify-between items-center">
+            <div>
+                <h3 class="text-sm font-bold text-slate-200">Savings Buffer</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Set the buffer to apply to savings vs the previous year.</p>
+            </div>
+            <span id="settingsSavingsBufferLabel" class="text-sm font-bold text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-xl font-mono border border-indigo-500/20">15%</span>
+        </div>
+        <input type="range" id="settingsSavingsBufferSlider" min="0" max="100" value="15" oninput="window.updateSavingsBuffer(this.value)" class="w-full accent-indigo-500 h-1.5 bg-slate-900 rounded-lg cursor-pointer border border-slate-800" />
+    </div>
+
 </section>

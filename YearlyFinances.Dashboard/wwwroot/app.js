@@ -5,6 +5,8 @@ import * as Dashboard from './js/dashboard.js';
 
 let currentGlobalCurrencySymbol = "£";
 let currentGlobalAlertDaysThreshold = 30;
+let currentSavingsInterval = "weekly";
+let currentSavingsBuffer = 15;
 
 document.addEventListener('DOMContentLoaded', async () => {
     await stitchUiComponents();
@@ -40,6 +42,8 @@ function loadAndApplyCachedSettings() {
     const cachedPrivacy = localStorage.getItem('finTrack_privacyMode') === 'true';
     currentGlobalCurrencySymbol = localStorage.getItem('finTrack_currencySymbol') || "£";
     currentGlobalAlertDaysThreshold = parseInt(localStorage.getItem('finTrack_alertDaysThreshold')) || 30;
+    currentSavingsInterval = localStorage.getItem('finTrack_savingsInterval') || "weekly";
+    currentSavingsBuffer = parseInt(localStorage.getItem('finTrack_savingsBuffer')) || 15;
 
     const privacyCb = document.getElementById('settingsPrivacyModeCheckbox');
     const currencySel = document.getElementById('settingsCurrencySelect');
@@ -218,6 +222,18 @@ window.updateAlertTimeframeDays = function (selectedDaysAmount) {
     Dashboard.loadUpcomingBillAlerts(currentGlobalAlertDaysThreshold);
 };
 
+window.updateSavingsInterval = function (selectedInterval) {
+    currentSavingsInterval = selectedInterval;
+    localStorage.setItem('finTrack_savingsInterval', currentSavingsInterval);
+};
+
+window.updateSavingsBuffer = function (selectedBuffer) {
+    currentSavingsBuffer = parseInt(selectedBuffer);
+    localStorage.setItem('finTrack_savingsBuffer', currentSavingsBuffer);
+
+    const textLabel = document.getElementById('settingsSavingsBufferLabel');
+    if (textLabel) textLabel.innerText = `${selectedBuffer}%`;
+};
 
 
 

@@ -10,6 +10,7 @@ namespace YearlyFinances.Core.Models
         decimal ForecastedYearlyTotal,
         decimal LastYearGrandTotal = 0
     )
+
     {
         public FinanceForecast(decimal ThisYearSoFar, decimal RemainingProjected, decimal ForecastedYearlyTotal)
             : this(ThisYearSoFar, RemainingProjected, ForecastedYearlyTotal, 0)

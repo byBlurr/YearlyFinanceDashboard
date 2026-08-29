@@ -24,6 +24,8 @@ export function switchView(viewName) {
         const currencySel = document.getElementById('settingsCurrencySelect');
         const alertSlider = document.getElementById('settingsAlertDaysSlider');
         const alertLabel = document.getElementById('settingsAlertDaysLabel');
+        const intervalSelect = document.getElementById('settingsSavingsIntervalSelect');
+        const bufferInput = document.getElementById('settingsSavingsBufferLabel');
 
         if (privacyCb) privacyCb.checked = localStorage.getItem('finTrack_privacyMode') === 'true';
         if (currencySel) currencySel.value = localStorage.getItem('finTrack_currencySymbol') || "£";
@@ -31,6 +33,12 @@ export function switchView(viewName) {
             const savedDays = localStorage.getItem('finTrack_alertDaysThreshold') || 30;
             alertSlider.value = savedDays;
             if (alertLabel) alertLabel.innerText = `${savedDays} Days`;
+        }
+        if (intervalSelect) {
+            intervalSelect.value = localStorage.getItem('finTrack_savingsInterval') || 'weekly';
+        }
+        if (bufferInput) {
+            bufferInput.value = localStorage.getItem('finTrack_savingsBuffer') || '15';
         }
     }
 

@@ -31,6 +31,17 @@ export async function loadForecastMetrics() {
                 progressBar.style.width = `${spentPercentage}%`;
             }
         }
+
+        const recommendedSavingsCard = document.getElementById('recommendedSavingsTxt');
+        const recommendedSavingsIntervalCard = document.getElementById('recommendedSavingsIntervalTxt');
+        const savingsInterval = localStorage.getItem('finTrack_savingsInterval') || 'weekly';
+        const bufferText = localStorage.getItem('finTrack_savingsBuffer') || '15';
+        const savingsBuffer = parseFloat(bufferText);
+
+        const recommendedSavings = (data.lastYearGrandTotal * (1 + (savingsBuffer / 100))) / (savingsInterval.toUpperCase() === 'WEEKLY' ? 52 : 12);
+        recommendedSavingsCard.innerText = `£${recommendedSavings.toFixed(2)}`;
+        recommendedSavingsIntervalCard.innerText = savingsInterval;
+
     } catch (err) {
         console.error('Forecast render error:', err);
     }
