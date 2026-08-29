@@ -38,8 +38,14 @@ namespace YearlyFinances.Core.Models
         int CategoryId,
         string Name,
         string? Description,
-        int CountsTowardSavings
-    );
+        bool CountsTowardSavings
+)
+    {
+        public TrackedItem(int Id, int CategoryId, string Name, string? Description, int CountsTowardSavings)
+            : this(Id, CategoryId, Name, Description, CountsTowardSavings == 1)
+        {
+        }
+    }
 
     public record AssetCategory(int Id, string Name);
 

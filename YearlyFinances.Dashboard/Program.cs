@@ -111,6 +111,6 @@ namespace YearlyFinances.Dashboard
         [Required] DateTime PaymentDate
     );
     public record CreateCategoryRequest([Required] string Name);
-    public record CreateItemRequest([Required] int CategoryId, int? GroupId, [Required] string Name, string? Description, int CountsTowardSavings);
+    public record CreateItemRequest([Required] int CategoryId, int? GroupId, [Required] string Name, string? Description, [Required] int CountsTowardSavings);
     public record CreateGroupRequest([Required] string Name, [Required] int CategoryId);
 }

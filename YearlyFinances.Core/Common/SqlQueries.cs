@@ -60,7 +60,8 @@
                 i.id AS Id, 
                 i.category_id AS CategoryId, 
                 i.name AS Name, 
-                i.description AS Description
+                i.description AS Description,
+                i.counts_toward_savings AS CountsTowardSavings
             FROM items i
             INNER JOIN categories c ON i.category_id = c.id
             WHERE c.id = @CategoryId;
