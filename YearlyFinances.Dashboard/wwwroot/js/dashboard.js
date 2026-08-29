@@ -10,6 +10,11 @@ export async function loadForecastMetrics() {
         document.getElementById('projectedTxt').innerText = `£${data.remainingProjected.toFixed(2)}`;
         document.getElementById('totalTxt').innerText = `£${data.forecastedYearlyTotal.toFixed(2)}`;
 
+        const lastYearTotalCard = document.getElementById('lastYearTotalTxt');
+        if (lastYearTotalCard) {
+            lastYearTotalCard.innerText = `£${data.lastYearGrandTotal.toFixed(2)}`;
+        }
+
         const thisYearLabel = document.getElementById('thisYearYtdLabel');
         if (thisYearLabel) {
             thisYearLabel.innerText = `£${data.thisYearSoFar.toFixed(2)}`;
@@ -21,7 +26,6 @@ export async function loadForecastMetrics() {
             const progressBar = document.getElementById('progressMeterBar');
 
             if (progressLabel) progressLabel.innerText = `${spentPercentage.toFixed(0)}%`;
-
             if (progressBar) {
                 progressBar.style.setProperty('width', `${spentPercentage}%`, 'important');
                 progressBar.style.width = `${spentPercentage}%`;

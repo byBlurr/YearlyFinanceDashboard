@@ -58,12 +58,14 @@ function applyCurrencyToTextElements(chosenSymbol) {
     const spentBox = document.getElementById('spentYtdTxt');
     const projBox = document.getElementById('projectedTxt');
     const totalBox = document.getElementById('totalTxt');
+    const lastYearTotalBox = document.getElementById('lastYearTotalTxt');
     const lastYrLabel = document.getElementById('lastYearYtdLabel');
     const thisYrLabel = document.getElementById('thisYearYtdLabel');
 
     if (spentBox) spentBox.innerText = spentBox.innerText.replace(/[£€$]/g, chosenSymbol);
     if (projBox) projBox.innerText = projBox.innerText.replace(/[£€$]/g, chosenSymbol);
     if (totalBox) totalBox.innerText = totalBox.innerText.replace(/[£€$]/g, chosenSymbol);
+    if (lastYearTotalBox) lastYearTotalBox.innerText = lastYearTotalBox.innerText.replace(/[£€$]/g, chosenSymbol);
     if (lastYrLabel) lastYrLabel.innerText = lastYrLabel.innerText.replace(/[£€$]/g, chosenSymbol);
     if (thisYrLabel) thisYrLabel.innerText = thisYrLabel.innerText.replace(/[£€$]/g, chosenSymbol);
 }

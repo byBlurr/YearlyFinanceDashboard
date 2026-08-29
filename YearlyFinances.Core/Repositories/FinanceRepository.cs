@@ -28,11 +28,14 @@ namespace YearlyFinances.Core.Repositories
         {
             using var db = CreateConnection();
 
-            var result = await db.QueryFirstOrDefaultAsync<FinanceForecast>(
-                new CommandDefinition(SqlQueries.GetForecastSummary, cancellationToken: ct)
-            );
+            const string forecastQuery = "SELECT this_year_so_far AS ThisYearSoFar, remaining_projected AS RemainingProjected, forecasted_yearly_total AS ForecastedYearlyTotal FROM view_forecasted_finance_summary LIMIT 1;";
+            var liveData = await db.QueryFirstOrDefaultAsync<FinanceForecast>(new CommandDefinition(forecastQuery, cancellationToken: ct))
+                           ?? new FinanceForecast(0, 0, 0, 0);
 
-            return result ?? new FinanceForecast(0.00m, 0.00m, 0.00m);
+            const string historicalQuery = "SELECT COALESCE(SUM(amount), 0) FROM payments WHERE YEAR(payment_date) = YEAR(CURRENT_DATE) - 1;";
+            var lastYearTotal = await db.ExecuteScalarAsync<decimal>(new CommandDefinition(historicalQuery, cancellationToken: ct));
+
+            return liveData with { LastYearGrandTotal = lastYearTotal };
         }
 
         public async Task<IEnumerable<PaymentItem>> GetPaymentsByYearAsync(int year, CancellationToken ct = default)

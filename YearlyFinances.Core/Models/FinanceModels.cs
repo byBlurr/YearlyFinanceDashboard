@@ -7,8 +7,16 @@ namespace YearlyFinances.Core.Models
     public record FinanceForecast(
         decimal ThisYearSoFar,
         decimal RemainingProjected,
-        decimal ForecastedYearlyTotal
-    );
+        decimal ForecastedYearlyTotal,
+        decimal LastYearGrandTotal = 0
+    )
+    {
+        public FinanceForecast(decimal ThisYearSoFar, decimal RemainingProjected, decimal ForecastedYearlyTotal)
+            : this(ThisYearSoFar, RemainingProjected, ForecastedYearlyTotal, 0)
+        {
+        }
+    }
+
     public record PaymentItem(
         int PaymentId,
         DateTime PaymentDate,
