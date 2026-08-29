@@ -23,7 +23,7 @@
             INNER JOIN categories c ON i.category_id = c.id
             LEFT JOIN groups g ON i.group_id = g.id
             WHERE YEAR(p.payment_date) = @Year
-            ORDER BY p.payment_date ASC;
+            ORDER BY p.payment_date DESC;
             """;
 
         public const string GetYtdVariance = """
