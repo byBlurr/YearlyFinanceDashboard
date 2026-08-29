@@ -5,43 +5,61 @@ let globalGroupsCache = [];
 export async function loadForecastMetrics() {
     try {
         const data = await ApiClient.getForecast();
+
         document.getElementById('spentYtdTxt').innerText = `£${data.thisYearSoFar.toFixed(2)}`;
         document.getElementById('projectedTxt').innerText = `£${data.remainingProjected.toFixed(2)}`;
         document.getElementById('totalTxt').innerText = `£${data.forecastedYearlyTotal.toFixed(2)}`;
 
+        const thisYearLabel = document.getElementById('thisYearYtdLabel');
+        if (thisYearLabel) {
+            thisYearLabel.innerText = `£${data.thisYearSoFar.toFixed(2)}`;
+        }
+
         if (data.forecastedYearlyTotal > 0) {
             const spentPercentage = (data.thisYearSoFar / data.forecastedYearlyTotal) * 100;
-            document.getElementById('progressMeterBar').style.width = `${spentPercentage}%`;
-            document.getElementById('progressPercentageLabel').innerText = `${spentPercentage.toFixed(0)}%`;
+            const progressLabel = document.getElementById('progressPercentageLabel');
+            const progressBar = document.getElementById('progressMeterBar');
+
+            if (progressLabel) progressLabel.innerText = `${spentPercentage.toFixed(0)}%`;
+
+            if (progressBar) {
+                progressBar.style.setProperty('width', `${spentPercentage}%`, 'important');
+                progressBar.style.width = `${spentPercentage}%`;
+            }
         }
     } catch (err) {
-        console.error(err);
+        console.error('Forecast render error:', err);
     }
 }
 
 export async function loadVarianceAndMeters() {
     try {
         const data = await ApiClient.getVariance();
-        document.getElementById('lastYearYtdLabel').innerText = `£${data.lastYearYtdTotal.toFixed(2)}`;
-        document.getElementById('thisYearYtdLabel').innerText = `£${data.thisYearYtdTotal.toFixed(2)}`;
+
+        const lastYearLabel = document.getElementById('lastYearYtdLabel');
+        if (lastYearLabel) {
+            lastYearLabel.innerText = `£${data.lastYearYtdTotal.toFixed(2)}`;
+        }
 
         const badge = document.getElementById('varianceBadge');
-        const changeValue = data.percentageChange;
-
-        if (changeValue > 0) {
-            badge.innerText = `+${changeValue.toFixed(2)}%`;
-            badge.className = 'font-semibold text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded';
-        } else if (changeValue < 0) {
-            badge.innerText = `${changeValue.toFixed(2)}%`;
-            badge.className = 'font-semibold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded';
-        } else {
-            badge.innerText = '0.00%';
-            badge.className = 'font-semibold text-slate-400 bg-slate-500/10 px-1.5 py-0.5 rounded';
+        if (badge) {
+            const changeValue = data.percentageChange;
+            if (changeValue > 0) {
+                badge.innerText = `+${changeValue.toFixed(2)}%`;
+                badge.className = 'font-semibold text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded';
+            } else if (changeValue < 0) {
+                badge.innerText = `${changeValue.toFixed(2)}%`;
+                badge.className = 'font-semibold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded';
+            } else {
+                badge.innerText = '0.00%';
+                badge.className = 'font-semibold text-slate-400 bg-slate-500/10 px-1.5 py-0.5 rounded';
+            }
         }
     } catch (err) {
-        console.error(err);
+        console.error('Variance render error:', err);
     }
 }
+
 
 export async function loadPaymentLogs(year) {
     const container = document.getElementById('paymentLogsContainer');
