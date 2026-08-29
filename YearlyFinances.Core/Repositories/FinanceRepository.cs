@@ -35,7 +35,13 @@ namespace YearlyFinances.Core.Repositories
             const string historicalQuery = "SELECT COALESCE(SUM(amount), 0) FROM payments WHERE YEAR(payment_date) = YEAR(CURRENT_DATE) - 1;";
             var lastYearTotal = await db.ExecuteScalarAsync<decimal>(new CommandDefinition(historicalQuery, cancellationToken: ct));
 
-            return liveData with { LastYearGrandTotal = lastYearTotal };
+            const string savingsFilterQuery = "SELECT COALESCE(SUM(p.amount), 0)  FROM payments p INNER JOIN items i ON p.item_id = i.id WHERE YEAR(p.payment_date) = YEAR(CURRENT_DATE) - 1 AND i.counts_toward_savings = 1; ";
+            var lastYearSavingsTotal = await db.ExecuteScalarAsync<decimal>(new CommandDefinition(savingsFilterQuery, cancellationToken: ct));
+
+            return liveData with { 
+                LastYearGrandTotal = lastYearTotal,
+                LastYearSavingsTotal = lastYearSavingsTotal
+            };
         }
 
         public async Task<IEnumerable<PaymentItem>> GetPaymentsByYearAsync(int year, CancellationToken ct = default)
