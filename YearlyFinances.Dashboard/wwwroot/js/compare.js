@@ -2,12 +2,14 @@
 
 export async function loadComparisonTimelineData() {
     const container = document.getElementById('compareAnalysisMatrixContainer');
+    const containerGrp = document.getElementById('compareGrpAnalysisContainer');
     const labelLastYear = document.getElementById('compare2025TotalLabel');
     const labelThisYear = document.getElementById('compare2026TotalLabel');
     const labelVariance = document.getElementById('compareNetVarianceLabel');
 
-    if (!container || !labelLastYear || !labelThisYear || !labelVariance) return;
+    if (!container || !containerGrp || !labelLastYear || !labelThisYear || !labelVariance) return;
     container.innerHTML = '<div class="text-sm text-slate-600 text-center py-12">Compiling structural matrix data models...</div>';
+    containerGrp.innerHTML = '<div class="text-sm text-slate-600 text-center py-12">Compiling structural matrix data models...</div>';
 
     try {
         const currentYear = new Date().getFullYear();
@@ -95,7 +97,6 @@ export async function loadComparisonTimelineData() {
 
                 statusBannerHTML = `<div class="text-right"><div class="text-xs font-bold text-slate-100">£${node.pThisYear.amount.toFixed(2)}</div><div class="text-[10px] text-slate-500 font-mono mt-0.5">Was £${node.pLastYear.amount.toFixed(2)}</div></div>`;
             }
-
             else if (node.pLastYear && !node.pThisYear) {
                 costBadgeHTML = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400">Scheduled / Owed</span>`;
 
@@ -105,7 +106,6 @@ export async function loadComparisonTimelineData() {
                 dateBadgeHTML = `<span class="text-[10px] text-slate-500 font-medium">• Expect around ${projectedDateStr}</span>`;
                 statusBannerHTML = `<div class="text-right"><div class="text-xs font-bold text-amber-500/80">Pending</div><div class="text-[10px] text-slate-500 font-mono mt-0.5">Est: £${node.pLastYear.amount.toFixed(2)}</div></div>`;
             }
-
             else if (!node.pLastYear && node.pThisYear) {
                 costBadgeHTML = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/10 text-indigo-400">New Addition</span>`;
                 dateBadgeHTML = `<span class="text-[10px] text-slate-500 font-medium">• First logged tracking milestone</span>`;
@@ -121,8 +121,98 @@ export async function loadComparisonTimelineData() {
                         </div>
                         <div class="text-[10px] text-slate-500 font-mono flex items-center gap-1.5 flex-wrap">
                             <span class="bg-slate-800 px-1.5 py-0.2 rounded text-slate-400">${node.cat.toUpperCase()}</span>
-                            <span>[${node.grp}]</span>
+                            ${node.grp !== "Unassigned" ? `<span class="bg-slate-800 px-1.5 py-0.2 rounded text-slate-400">${node.grp.toUpperCase()}</span>` : ``}
                             ${dateBadgeHTML}
+                        </div>
+                    </div>
+                    ${statusBannerHTML}
+                </div>
+            `;
+        }).join('');
+
+        const groupMap = Object.values(itemMap).reduce((acc, node) => {
+            const groupName = node.grp || "Unassigned";
+
+            if (!acc[groupName]) {
+                acc[groupName] = {
+                    name: groupName,
+                    amountLastYear: 0,
+                    amountThisYear: 0,
+                    itemCount: 0,
+                    hasLastYear: false,
+                    hasThisYear: false
+                };
+            }
+
+            if (node.pLastYear) {
+                acc[groupName].amountLastYear += node.pLastYear.amount;
+                acc[groupName].hasLastYear = true;
+            }
+            if (node.pThisYear) {
+                acc[groupName].amountThisYear += node.pThisYear.amount;
+                acc[groupName].hasThisYear = true;
+            }
+
+            acc[groupName].itemCount++;
+            return acc;
+        }, {});
+
+        const sortedGroups = Object.values(groupMap).sort((a, b) => a.name.localeCompare(b.name));
+
+        if (sortedGroups.length === 0) {
+            containerGrp.innerHTML = '<div class="text-sm text-slate-500 text-center py-12">No tracking groups discoverable inside active records.</div>';
+            return;
+        }
+
+        containerGrp.innerHTML = sortedGroups.map(grp => {
+            let costBadgeHTML = '';
+            let itemBadgeHTML = `<span class="text-[10px] text-slate-500 font-medium">${grp.itemCount} ${grp.itemCount === 1 ? 'item' : 'items'}</span>`;
+            let statusBannerHTML = '';
+
+            if (grp.hasLastYear && grp.hasThisYear) {
+                const diff = grp.amountThisYear - grp.amountLastYear;
+                if (diff > 0) {
+                    costBadgeHTML = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/10 text-rose-400">+£${diff.toFixed(2)}</span>`;
+                } else if (diff < 0) {
+                    costBadgeHTML = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400">-£${Math.abs(diff).toFixed(2)}</span>`;
+                } else {
+                    costBadgeHTML = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">Stable</span>`;
+                }
+
+                statusBannerHTML = `
+                    <div class="text-right">
+                        <div class="text-xs font-bold text-slate-100">£${grp.amountThisYear.toFixed(2)}</div>
+                        <div class="text-[10px] text-slate-500 font-mono mt-0.5">Was £${grp.amountLastYear.toFixed(2)}</div>
+                    </div>`;
+                }
+                else if (grp.hasLastYear && !grp.hasThisYear) {
+                    costBadgeHTML = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400">Pending Group</span>`;
+                    statusBannerHTML = `
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-amber-500/80">Pending</div>
+                            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Est: £${grp.amountLastYear.toFixed(2)}</div>
+                        </div>
+                    `;
+                }
+                else if (!grp.hasLastYear && grp.hasThisYear) {
+                    costBadgeHTML = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/10 text-indigo-400">New Group</span>`;
+                    statusBannerHTML = `
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-indigo-400">£${grp.amountThisYear.toFixed(2)}</div>
+                            <div class="text-[10px] text-slate-500 font-mono mt-0.5">No benchmark</div>
+                        </div>
+                    `;
+                }
+
+            return `
+                <div class="flex justify-between items-center p-3.5 bg-slate-900 rounded-xl border border-slate-800/60 hover:border-slate-700/60 transition group">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-semibold text-sm text-slate-200 group-hover:text-indigo-400 transition">${grp.name}</span>
+                            ${costBadgeHTML}
+                        </div>
+                        <div class="text-[10px] text-slate-500 font-mono flex items-center gap-1.5 flex-wrap">
+                            ${itemBadgeHTML}
                         </div>
                     </div>
                     ${statusBannerHTML}

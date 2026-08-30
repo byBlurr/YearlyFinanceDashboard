@@ -18,10 +18,19 @@
     </div>
 </section>
 
-<div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl">
-    <h3 class="font-bold text-base text-slate-300 mb-1">Itemized Variance Analysis</h3>
-    <p class="text-xs text-slate-500 mb-6">Chronological overview mapping individual price shifts, due-date variances, and pending year-end items.</p>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+    <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl">
+        <h3 class="font-bold text-base text-slate-300 mb-1">Itemized Variance Analysis</h3>
+        <p class="text-xs text-slate-500 mb-6">Chronological overview mapping individual price shifts, due-date variances, and pending year-end items.</p>
 
-    <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1" id="compareAnalysisMatrixContainer">
+        <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1" id="compareAnalysisMatrixContainer">
+        </div>
     </div>
-</div>
+    <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800/80 shadow-xl">
+        <h3 class="font-bold text-base text-slate-300 mb-1">Group Variance Analysis</h3>
+        <p class="text-xs text-slate-500 mb-6">Chronological overview mapping group price shifts.</p>
+
+        <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1" id="compareGrpAnalysisContainer">
+        </div>
+    </div>
+</section>

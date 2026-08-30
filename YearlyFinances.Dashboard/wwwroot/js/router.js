@@ -47,5 +47,4 @@ export function switchView(viewName) {
     if (viewName === 'groups') loadGroupsPageData();
     if (viewName === 'items') loadItemsPageData();
     if (viewName === 'categories') loadCategoriesPageData();
-    if (viewName === 'settings') { }
 }
