@@ -238,7 +238,10 @@ window.updateSavingsBuffer = function (selectedBuffer) {
     if (textLabel) textLabel.innerText = `${selectedBuffer}%`;
 };
 
-
+import { HandleSavingsCalculateSubmit } from './js/savings.js';
+import { UpdateSavingNumberOfMonths } from './js/savings.js';
+window.handleSavingsCalculateSubmit = HandleSavingsCalculateSubmit;
+window.updateSavingNumberOfMonths = UpdateSavingNumberOfMonths;
 
 
 async function runDatabaseHealthMonitorCycle() {

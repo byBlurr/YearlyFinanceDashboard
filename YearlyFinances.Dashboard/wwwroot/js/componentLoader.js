@@ -27,10 +27,11 @@ export async function stitchUiComponents() {
         loadComponent('view-panel-dashboard', '/components/dashboardView.html'),
         loadComponent('view-panel-compare', '/components/compareView.html'),
         loadComponent('view-panel-groups', '/components/groupsView.html'),
-        loadComponent('view-panel-items', '/components/itemsView.html'),
-        loadComponent('view-panel-categories', '/components/categoriesView.html'),
+        //loadComponent('view-panel-items', '/components/itemsView.html'),
+        //loadComponent('view-panel-categories', '/components/categoriesView.html'),
         loadComponent('view-panel-manage', '/components/manageView.html'),
-        loadComponent('view-panel-settings', '/components/settingsView.html')
+        loadComponent('view-panel-settings', '/components/settingsView.html'),
+        loadComponent('view-panel-savings', '/components/savingsView.html')
     ]);
 
 }

@@ -3,6 +3,7 @@ import { loadCategoriesPageData } from './categories.js';
 import { loadGroupsPageData } from './groups.js';
 import { loadManagementCategories } from './dashboard.js';
 import { loadComparisonTimelineData } from './compare.js';
+import { loadSavingsPageData } from './savings.js';
 
 export function switchView(viewName) {
     document.querySelectorAll('.view-panel').forEach(panel => panel.classList.add('hidden'));
@@ -47,4 +48,6 @@ export function switchView(viewName) {
     if (viewName === 'groups') loadGroupsPageData();
     if (viewName === 'items') loadItemsPageData();
     if (viewName === 'categories') loadCategoriesPageData();
+
+    if (viewName === 'savings') loadSavingsPageData();
 }
