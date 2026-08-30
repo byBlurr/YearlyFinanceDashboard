@@ -252,9 +252,9 @@ async function runDatabaseHealthMonitorCycle() {
             <div class="flex flex-col gap-0.5">
                 <div class="text-emerald-400 font-semibold flex items-center gap-2 transition">
                     <span class="h-2 w-2 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981] animate-pulse"></span>
-                    Database Connected
+                    Database Connection
                 </div>
-                <div class="text-[10px] text-slate-500 font-sans pl-4">Latency: ${health.latencyMs}ms • .NET 10 App Engine</div>
+                <div class="text-[10px] text-slate-500 font-sans pl-4">Latency: ${health.latencyMs}ms • ${health.status}</div>
             </div>
         `;
     } catch (err) {
@@ -262,9 +262,10 @@ async function runDatabaseHealthMonitorCycle() {
             <div class="flex flex-col gap-0.5">
                 <div class="text-rose-400 font-bold flex items-center gap-2 tracking-wide">
                     <span class="h-2 w-2 bg-rose-600 rounded-full shadow-[0_0_8px_#f43f5e] animate-ping"></span>
-                    DATABASE OFFLINE
+                    Database Connection
                 </div>
                 <div class="text-[10px] text-rose-500/80 font-sans pl-4">Network Bridge Connection Refused</div>
+                <div class="text-[10px] text-rose-500/80 font-sans pl-4">${err.message}</div>
             </div>
         `;
     }
