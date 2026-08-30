@@ -1,0 +1,4 @@
+docker compose up --build
+
+docker build -t yearly-finances-dashboard:latest -f YearlyFinances.Dashboard/Dockerfile .
+docker save yearly-finances-dashboard:latest -o fintrack-image.tar

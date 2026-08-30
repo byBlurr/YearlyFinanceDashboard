@@ -2,6 +2,7 @@
   <Folder Name="/Solution Items/">
     <File Path=".env" />
     <File Path=".gitignore" />
+    <File Path="commands.txt" />
     <File Path="docker-compose.yml" />
   </Folder>
   <Project Path="YearlyFinances.Core/YearlyFinances.Core.csproj" />
