@@ -1,10 +1,13 @@
 ﻿import { ApiClient } from './api.js';
 
 export async function loadSavingsPageData() {
+    const result = document.getElementById('calculateSavingsResult');
     result.innerHTML = '£0';
+    window.handleSavingsCalculateSubmit = HandleSavingsCalculateSubmit;
+    window.updateSavingNumberOfMonths = UpdateSavingNumberOfMonths;
 }
 
-export function HandleSavingsCalculateSubmit(event) {
+export async function HandleSavingsCalculateSubmit(event) {
     event.preventDefault();
     const result = document.getElementById('calculateSavingsResult');
     const starting = document.getElementById('calculateStartingMoney');
@@ -14,7 +17,7 @@ export function HandleSavingsCalculateSubmit(event) {
     result.innerHTML = '£' + (parseFloat(starting.value) + (parseFloat(amountToSave.value) * parseInt(numberOfMonths.value)));
 }
 
-export function UpdateSavingNumberOfMonths(value) {
+export async function UpdateSavingNumberOfMonths(value) {
     const label = document.getElementById('calculateNumberOfMonthsLabel');
     if (label) {
         label.innerText = `${value} Months`;
